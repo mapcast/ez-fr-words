@@ -78,6 +78,20 @@ class _WordDetailScreenState extends State<WordDetailScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        Image.asset(
+                          word.country == 'france'
+                              ? 'icons/flags/png/fr.png'
+                              : word.country == 'germany'
+                                  ? 'icons/flags/png/de.png'
+                                  : word.country == 'italy'
+                                      ? 'icons/flags/png/it.png'
+                                      : 'icons/flags/png/fr.png', // 기본값: 프랑스
+                          package: 'country_icons',
+                          width: 32,
+                          height: 32,
+                          fit: BoxFit.contain,
+                        ),
+                        const SizedBox(width: 12),
                         Text(
                           word.word,
                           style: const TextStyle(

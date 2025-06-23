@@ -21,8 +21,9 @@ class DatabaseHelper {
     String path = join(await getDatabasesPath(), 'french_dictionary.db');
     return await openDatabase(
       path,
-      version: 1,
+      version: 2,
       onCreate: _onCreate,
+      onUpgrade: _onUpgrade,
     );
   }
 
@@ -34,19 +35,28 @@ class DatabaseHelper {
         read TEXT NOT NULL,
         katakana TEXT NOT NULL,
         meaning TEXT NOT NULL,
+        country TEXT NOT NULL DEFAULT 'france',
         createdAt TEXT DEFAULT CURRENT_TIMESTAMP
       )
     ''');
   }
 
+  Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 2) {
+      await db.execute('DROP TABLE IF EXISTS words');
+      await _onCreate(db, newVersion); // 테이블 재생성
+    }
+  }
+
   // 단어 추가
-  Future<int> insertWord(Word word) async {
+  Future<int> insertWord(Word word, {String country = 'france'}) async {
     final db = await database;
     return await db.insert('words', {
       'word': word.word,
       'read': word.read,
       'katakana': word.katakana,
       'meaning': word.meaning,
+      'country': country,
     });
   }
 
@@ -163,7 +173,7 @@ class DatabaseHelper {
   }
 
   // JSON 파일에서 데이터 import
-  Future<int> importFromJson(String jsonString) async {
+  Future<int> importFromJson(String jsonString, {String country = 'france'}) async {
     final db = await database;
     final List<dynamic> jsonData = json.decode(jsonString);
     int importedCount = 0;
@@ -175,6 +185,7 @@ class DatabaseHelper {
           'read': item['read'],
           'katakana': item['katakana'],
           'meaning': item['meaning'],
+          'country': country,
         });
         importedCount++;
       }

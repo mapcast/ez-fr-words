@@ -13,7 +13,7 @@ class FrenchDictionaryApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: '프랑스어 단어장',
+      title: 'Namemaker',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color(0xFF6B46C1), // 보라색

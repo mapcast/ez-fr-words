@@ -123,7 +123,7 @@ class _WordListScreenState extends State<WordListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('프랑스어 단어장'),
+        title: const Text('Namemaker'),
         centerTitle: true,
       ),
       body: Column(
@@ -325,13 +325,18 @@ class _WordListScreenState extends State<WordListScreen> {
               leading: CircleAvatar(
                 radius: 24,
                 backgroundColor: const Color(0xFF6B46C1).withOpacity(0.1),
-                child: Text(
-                  word.word[0].toUpperCase(),
-                  style: const TextStyle(
-                    color: Color(0xFF6B46C1),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
+                child: Image.asset(
+                  word.country == 'france'
+                      ? 'icons/flags/png/fr.png'
+                      : word.country == 'germany'
+                          ? 'icons/flags/png/de.png'
+                          : word.country == 'italy'
+                              ? 'icons/flags/png/it.png'
+                              : 'icons/flags/png/fr.png', // 기본값: 프랑스
+                  package: 'country_icons',
+                  width: 28,
+                  height: 28,
+                  fit: BoxFit.contain,
                 ),
               ),
               title: Text(

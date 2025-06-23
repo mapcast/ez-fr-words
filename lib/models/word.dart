@@ -4,6 +4,7 @@ class Word {
   final String read;
   final String katakana;
   final String meaning;
+  final String country;
 
   Word({
     this.id,
@@ -11,6 +12,7 @@ class Word {
     required this.read,
     required this.katakana,
     required this.meaning,
+    this.country = 'france',
   });
 
   factory Word.fromJson(Map<String, dynamic> json) {
@@ -20,6 +22,7 @@ class Word {
       read: json['read'] ?? '',
       katakana: json['katakana'] ?? '',
       meaning: json['meaning'] ?? '',
+      country: json['country'] ?? 'france',
     );
   }
 
@@ -30,6 +33,7 @@ class Word {
       'read': read,
       'katakana': katakana,
       'meaning': meaning,
+      'country': country,
     };
   }
 } 
