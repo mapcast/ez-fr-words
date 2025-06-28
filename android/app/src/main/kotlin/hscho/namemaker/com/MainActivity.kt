@@ -1,4 +1,4 @@
-package com.example.namemaker_fr
+package hscho.namemaker.com
 
 import io.flutter.embedding.android.FlutterActivity
 
